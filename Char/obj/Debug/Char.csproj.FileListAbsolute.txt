@@ -1,0 +1,6 @@
+C:\Users\shipo\source\repos\First\Char\bin\Debug\Char.exe.config
+C:\Users\shipo\source\repos\First\Char\bin\Debug\Char.exe
+C:\Users\shipo\source\repos\First\Char\bin\Debug\Char.pdb
+C:\Users\shipo\source\repos\First\Char\obj\Debug\Char.exe
+C:\Users\shipo\source\repos\First\Char\obj\Debug\Char.pdb
+C:\Users\shipo\source\repos\First\Char\obj\Debug\Char.csprojAssemblyReference.cache
