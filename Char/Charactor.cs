@@ -10,24 +10,25 @@ namespace Char
     {
         string Name;
         int Health;
-        int X;
-        int Y;
-        int Min = 0;
-        int Max = 9;
+        int CoordinateX;
+        int CoordinateY;
+        int MinX = 0;
+        int MinY = 0;
+        int MaxX = 50;
+        int MaxY = 20;
 
         public Charactor(string name, int health, int x, int y)
         {
             this.Name = name;
             this.Health = health;
-            if (x > Max || x < Min || y > Max || x < Min)
+            if (x > MaxX || x < MinX || y > MaxX || y < MinX)
             {
                 Console.WriteLine("Нельзя поставить персонажа за приделами поля");
-
             }
             else
             {
-                this.X = x;
-                this.Y = y;
+                this.CoordinateX = x;
+                this.CoordinateY = y;
             }
         }
 
@@ -35,30 +36,30 @@ namespace Char
         {
             if (a == ConsoleKey.W)
             {
-                if (this.X != this.Min)
+                if (this.CoordinateX != this.MinX)
                 {
-                    this.X -= 1;
+                    this.CoordinateX -= 1;
                 }
             }
             else if (a == ConsoleKey.D)
             {
-                if (this.Y != this.Max)
+                if (this.CoordinateY != this.MaxX)
                 {
-                    this.Y += 1;
+                    this.CoordinateY += 1;
                 }
             }
             else if (a == ConsoleKey.S)
             {
-                if (this.X != this.Max)
+                if (this.CoordinateX != this.MaxX)
                 {
-                    this.X += 1;
+                    this.CoordinateX += 1;
                 }
             }
             else if (a == ConsoleKey.A)
             {
-                if (this.Y != this.Min)
+                if (this.CoordinateY != this.MinX)
                 {
-                    this.Y -= 1;
+                    this.CoordinateY -= 1;
                 }
             }
         }
@@ -97,7 +98,7 @@ namespace Char
         }
         public bool Place (int x, int y)
         {
-            if (x == this.X && y == this.Y)
+            if (x == this.CoordinateX && y == this.CoordinateY)
             {
                 return true;
             }
@@ -111,7 +112,7 @@ namespace Char
         {
             Console.WriteLine($"Персонаж - {this.Name}");
             Console.WriteLine($"Кол-во жизней - {this.Health}");
-            Console.WriteLine($"Координаты - {this.X+1}x{this.Y+1}");
+            Console.WriteLine($"Координаты - {this.CoordinateX+1}x{this.CoordinateY+1}");
         }
     }
 }

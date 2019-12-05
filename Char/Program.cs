@@ -10,11 +10,9 @@ namespace Char
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите нахождение персонажа по координате Х");
-            int X = Convert.ToInt32(Console.ReadLine())-1;
-            Console.WriteLine("Введите нахождение персонажа по координате Y");
-            int Y = Convert.ToInt32(Console.ReadLine())-1;
-            if (X >= 10 || X <= 0 || Y >= 10 || Y <= 0)
+            int X, Y;
+            CharPlaсe(out X, out Y);
+            if (X >= 50 || X <= 0 || Y >= 20 || Y <= 0)
             {
                 Console.WriteLine("Нельзя разместить персонажа за пределами карты");
                 Console.ReadKey();
@@ -28,38 +26,10 @@ namespace Char
                     Console.WriteLine("Для перемещения нажмите WASD. Для удара персонажа нажмите Enter, для исцеления нажмите Backspace");
 
                     Console.WriteLine();
-                    int[,] Arr = new int[10, 10];
-
-                    for (int i = 0; i < 10; i++)
-                    {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            Arr[i, j] = 0;
-                            if (Hodr.Place(i, j))
-                            {
-                                Arr[i, j] = 5;
-                            }
-                            Console.Write(Arr[i, j]);
-                        }
-                        Console.WriteLine();
-                    }
-                    Console.WriteLine();
+                    MapCharView(Hodr);
 
                     Hodr.CharCheck();
-
-                    ConsoleKey Act = Console.ReadKey().Key;
-                    if (Act == ConsoleKey.W || Act == ConsoleKey.A || Act == ConsoleKey.S || Act == ConsoleKey.D)
-                    {
-                        Hodr.Move(Act);
-                    }
-                    else if (Act == ConsoleKey.Enter)
-                    {
-                        Hodr.Dmg();
-                    }
-                    else if (Act == ConsoleKey.Backspace)
-                    {
-                        Hodr.Heal();
-                    }
+                    Action(Hodr);
 
                     Console.Clear();
                     if (Hodr.CharLive() == false)
@@ -73,6 +43,51 @@ namespace Char
                         break;
                     }
                 }
+            }
+        }
+
+        private static void CharPlaсe(out int x, out int y)
+        {
+            Console.WriteLine("Введите нахождение персонажа по координате Х");
+            x = Convert.ToInt32(Console.ReadLine()) - 1;
+            Console.WriteLine("Введите нахождение персонажа по координате Y");
+            y = Convert.ToInt32(Console.ReadLine()) - 1;
+        }
+
+        private static void MapCharView(Charactor hodr)
+        {
+            int[,] map = new int[10, 10];
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    map[i, j] = 0;
+                    if (hodr.Place(i, j))
+                    {
+                        map[i, j] = 5;
+                    }
+                    Console.Write(map[i, j]);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+
+        private static void Action(Charactor Hodr)
+        {
+            ConsoleKey Act = Console.ReadKey().Key;
+            if (Act == ConsoleKey.W || Act == ConsoleKey.A || Act == ConsoleKey.S || Act == ConsoleKey.D)
+            {
+                Hodr.Move(Act);
+            }
+            else if (Act == ConsoleKey.Enter)
+            {
+                Hodr.Dmg();
+            }
+            else if (Act == ConsoleKey.Backspace)
+            {
+                Hodr.Heal();
             }
         }
     }
