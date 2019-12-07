@@ -13,39 +13,47 @@ namespace Char
         public int MaxHight = 20;
         public int X = 5;
         public int Y = 10;
-        public string[] line;
+        public char[,] line;
 
-        public string[] MapReader()
+        public char[,] MapReader()
         {
             using (var mapRead = new StreamReader(@"C:\Users\shipo\source\repos\First\Map.txt"))
             {
+
                 int count = 0;
-                this.line = new string[MaxHight];
+                this.line = new char[MaxHight, MaxWidth];
+                char Kek;
                 while (!mapRead.EndOfStream)
                 {
-                    line[count] = mapRead.ReadLine();
+                    //for (int i = 0; !mapRead.EndOfStream; i++)
+                    //{
+                    //    Kek = Convert.ToChar(mapRead.Read());
+                    //    Console.Write(Kek);
+                    //}
+                    for (int j = 0; j < MaxWidth && !mapRead.EndOfStream; j++)
+                    {
+                        line[count, j] = Convert.ToChar(mapRead.Read());
+                        Console.Write(line[count, j]);
+                    }
                     count++;
                 }
                 return line;
             }
         }
-        public void MapWriter(string[] map)
+        public void MapWriter(char[,] map)
         {
-            for (int i = 0; i < map.Length; i++)
+            for (int i = 0; i < MaxHight; i++)
             {
-                if (i == Y)
+                for (int j = 0; j < MaxHight; j++)
                 {
-                    map[i].ToCharArray();
-                    for (int j = 0; j < MaxHight; i++)
+                    if (j == X && i == Y)
                     {
-                        if (j == X)
-                        {
-                            map[j] = "X";
-                            Console.WriteLine(map[j]);
-                        }
+                        map[i, j] = 'X';
+                        //Console.WriteLine([j]);
                     }
+                    Console.Write(map[i, j]);
                 }
-                Console.WriteLine(map[i]);
+                Console.WriteLine();
             }
         }
     }
