@@ -10,11 +10,12 @@ namespace Char
     {
         static void Main(string[] args)
         {
+
             Console.WriteLine("Введите нахождение персонажа по координате Х");
             int X = Convert.ToInt32(Console.ReadLine())-1;
             Console.WriteLine("Введите нахождение персонажа по координате Y");
             int Y = Convert.ToInt32(Console.ReadLine())-1;
-            if (X >= 10 || X <= 0 || Y >= 10 || Y <= 0)
+            if (X >= 10 || X+1 <= 0 || Y >= 10 || Y+1 <= 0)
             {
                 Console.WriteLine("Нельзя разместить персонажа за пределами карты");
                 Console.ReadKey();
@@ -22,7 +23,8 @@ namespace Char
             else
             {
                 Charactor Hodr = new Charactor("Hodr", 9, X, Y);
-
+                Let FirstLet = new Let(3-1, 6-1);
+                Let SecondLet = new Let(8-1, 9-1);
                 while (Hodr.CharLive())
                 {
                     Console.WriteLine("Для перемещения нажмите WASD. Для удара персонажа нажмите Enter, для исцеления нажмите Backspace");
@@ -30,20 +32,41 @@ namespace Char
                     Console.WriteLine();
                     int[,] Arr = new int[10, 10];
 
+                    int[] kek = Hodr.CharPosition();
+                    Console.WriteLine(kek);
+                    Console.WriteLine(FirstLet.LetPosition());
+
+
+                    if (Hodr.CharPosition() == FirstLet.LetPosition()/* || Hodr.CharPosition() == SecondLet.LetPosition()*/)
+                    {
+                        Hodr.Dmg();
+
+                    }
+
                     for (int i = 0; i < 10; i++)
                     {
                         for (int j = 0; j < 10; j++)
                         {
                             Arr[i, j] = 0;
+                            if (FirstLet.LetPlace(i,j))
+                            {
+                                Arr[i,j] = 7;
+                            }
+                            if (SecondLet.LetPlace(i,j))
+                            {
+                                Arr[i, j] = 7;
+                            }
                             if (Hodr.Place(i, j))
                             {
                                 Arr[i, j] = 5;
                             }
                             Console.Write(Arr[i, j]);
                         }
+
                         Console.WriteLine();
                     }
                     Console.WriteLine();
+                    Hodr.CharPlaceSave();
 
                     Hodr.CharCheck();
 

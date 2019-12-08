@@ -19,12 +19,12 @@ namespace Char
         {
             this.Name = name;
             this.Health = health;
-            if (x > Max || x < Min || y > Max || x < Min)
-            {
-                Console.WriteLine("Нельзя поставить персонажа за приделами поля");
+            //if (x > Max || x < Min || y > Max || x < Min)
+            //{
+            //    Console.WriteLine("Нельзя поставить персонажа за приделами поля");
 
-            }
-            else
+            //}
+            //else
             {
                 this.X = x;
                 this.Y = y;
@@ -95,7 +95,7 @@ namespace Char
                 return false;
             }
         }
-        public bool Place (int x, int y)
+        public bool Place(int x, int y)
         {
             if (x == this.X && y == this.Y)
             {
@@ -111,7 +111,23 @@ namespace Char
         {
             Console.WriteLine($"Персонаж - {this.Name}");
             Console.WriteLine($"Кол-во жизней - {this.Health}");
-            Console.WriteLine($"Координаты - {this.X+1}x{this.Y+1}");
+            Console.WriteLine($"Координаты - {this.X + 1}x{this.Y + 1}");
         }
+
+        public int[] CharPlaceSave()
+        {
+            int[] charPlace = new int[2];
+            charPlace[0] = this.X;
+            charPlace[1] = this.Y;
+            return charPlace;
+        }
+        public int[] CharPosition()
+        {
+            int[] Pos = new int[2];
+            Pos[0] = this.X;
+            Pos[1] = this.Y;
+            return Pos;
+        }
+
     }
 }
