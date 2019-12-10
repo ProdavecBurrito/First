@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Char
 {
-    public class ClassCharactor
+    public class Charactor
     {
         string Name;
         int Health;
@@ -15,7 +15,7 @@ namespace Char
         int Min = 0;
         int Max = 9;
 
-        public ClassCharactor(string name, int health, int x, int y)
+        public Charactor(string name, int health, int x, int y)
         {
             this.Name = name;
             this.Health = health;

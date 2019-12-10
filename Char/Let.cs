@@ -6,24 +6,20 @@ using System.Threading.Tasks;
 
 namespace Char
 {
-    class ClassLet
+    class Let
     {
-        public int LetCoordX;
-        public int LetCoordY;
+        public int CoordinateX;
+        public int CoordinateY;
 
-        public ClassLet(int letCoordX, int letCoordY)
+        public Let(int letCoordX, int letCoordY)
         {
-            this.LetCoordX = letCoordX;
-            this.LetCoordY = letCoordY;
+            this.CoordinateX = letCoordX;
+            this.CoordinateY = letCoordY;
         }
 
-        //public int LetDmg()
-        //{
-        //    if (LetCoordX == this.X)
-        //}
         public bool LetPlace(int x, int y)
         {
-            if (x == this.LetCoordX && y == this.LetCoordY)
+            if (x == this.CoordinateX && y == this.CoordinateY)
             {
                 return true;
             }
@@ -36,8 +32,8 @@ namespace Char
         public int[] LetPosition()
         {
             int[] Pos = new int[2];
-            Pos[0] = this.LetCoordX;
-            Pos[1] = this.LetCoordY;
+            Pos[0] = this.CoordinateX;
+            Pos[1] = this.CoordinateY;
             return Pos;
         }
     }

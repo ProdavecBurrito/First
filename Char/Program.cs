@@ -12,10 +12,12 @@ namespace Char
         {
             int SaveCoordX = 0;
             int SaveCoordY = 0;
+
             Console.WriteLine("Введите нахождение персонажа по координате Х");
             int X = Convert.ToInt32(Console.ReadLine())-1;
             Console.WriteLine("Введите нахождение персонажа по координате Y");
             int Y = Convert.ToInt32(Console.ReadLine())-1;
+
             if (X >= 10 || X+1 <= 0 || Y >= 10 || Y+1 <= 0)
             {
                 Console.WriteLine("Нельзя разместить персонажа за пределами карты");
@@ -23,35 +25,49 @@ namespace Char
             }
             else
             {
-                ClassCharactor Hodr = new ClassCharactor("Hodr", 9, X, Y);
-                ClassLet FirstLet = new ClassLet(3-1, 6-1);
-                ClassLet SecondLet = new ClassLet(8-1, 9-1);
+                Charactor Hodr = new Charactor("Hodr", 9, X, Y);
+                Let FirstLet = new Let(3-1, 6-1);
+                Let SecondLet = new Let(8-1, 9-1);
+                HealingElixir FirstHealEl = new HealingElixir(4 - 1, 3 - 1);
+                HealingElixir SecondHealEl = new HealingElixir(10 - 1, 7 - 1);
+
                 while (Hodr.CharLive())
                 {
                     Console.WriteLine("Для перемещения нажмите WASD. Для удара персонажа нажмите Enter, для исцеления нажмите Backspace");
 
                     Console.WriteLine();
-                    int[,] Arr = new int[10, 10];
+                    int[,] Field = new int[10, 10];
                     CharOnLet(ref SaveCoordX, ref SaveCoordY, Hodr, FirstLet, SecondLet);
-
+                    GrabHealingEl(Hodr, FirstHealEl);
+                    GrabHealingEl(Hodr, SecondHealEl);
                     for (int i = 0; i < 10; i++)
                     {
                         for (int j = 0; j < 10; j++)
                         {
-                            Arr[i, j] = 0;
+                            Field[i, j] = 0;
+
+                            // тут пора бы уже свич делать, завтра попробую
                             if (FirstLet.LetPlace(i, j))
                             {
-                                Arr[i, j] = 7;
+                                Field[i, j] = 7;
                             }
                             if (SecondLet.LetPlace(i, j))
                             {
-                                Arr[i, j] = 7;
+                                Field[i, j] = 7;
+                            }
+                            if (FirstHealEl.HealElPlace(i, j))
+                            {
+                                Field[i, j] = 3;
+                            }
+                            if (SecondHealEl.HealElPlace(i, j))
+                            {
+                                Field[i, j] = 3;
                             }
                             if (Hodr.Place(i, j))
                             {
-                                Arr[i, j] = 5;
+                                Field[i, j] = 1;
                             }
-                            Console.Write(Arr[i, j]);
+                            Console.Write(Field[i, j]);
                         }
 
                         Console.WriteLine();
@@ -77,24 +93,33 @@ namespace Char
             }
         }
 
-        private static void Action(ClassCharactor Hodr)
+        private static void GrabHealingEl(Charactor pers, HealingElixir healEl)
+        {
+            if (healEl.HealPosition()[0] == pers.CharPosition()[0] && healEl.HealPosition()[1] == pers.CharPosition()[1])
+            {
+                pers.Heal();
+                healEl.HealDelite();
+            }
+        }
+
+        private static void Action(Charactor pers)
         {
             ConsoleKey Act = Console.ReadKey().Key;
             if (Act == ConsoleKey.W || Act == ConsoleKey.A || Act == ConsoleKey.S || Act == ConsoleKey.D)
             {
-                Hodr.Move(Act);
+                pers.Move(Act);
             }
             else if (Act == ConsoleKey.Enter)
             {
-                Hodr.Dmg();
+                pers.Dmg();
             }
             else if (Act == ConsoleKey.Backspace)
             {
-                Hodr.Heal();
+                pers.Heal();
             }
         }
 
-        private static void CharOnLet(ref int SaveCoordX, ref int SaveCoordY, ClassCharactor Hodr, ClassLet FirstLet, ClassLet SecondLet)
+        private static void CharOnLet(ref int SaveCoordX, ref int SaveCoordY, Charactor Hodr, Let FirstLet, Let SecondLet)
         {
             if (FirstLet.LetPosition()[0] == Hodr.CharPosition()[0] && FirstLet.LetPosition()[1] == Hodr.CharPosition()[1] || SecondLet.LetPosition()[0] == Hodr.CharPosition()[0] && SecondLet.LetPosition()[1] == Hodr.CharPosition()[1])
             {
