@@ -10,7 +10,8 @@ namespace Char
     {
         static void Main(string[] args)
         {
-
+            int SaveCoordX = 0;
+            int SaveCoordY = 0;
             Console.WriteLine("Введите нахождение персонажа по координате Х");
             int X = Convert.ToInt32(Console.ReadLine())-1;
             Console.WriteLine("Введите нахождение персонажа по координате Y");
@@ -22,37 +23,27 @@ namespace Char
             }
             else
             {
-                Charactor Hodr = new Charactor("Hodr", 9, X, Y);
-                Let FirstLet = new Let(3-1, 6-1);
-                Let SecondLet = new Let(8-1, 9-1);
+                ClassCharactor Hodr = new ClassCharactor("Hodr", 9, X, Y);
+                ClassLet FirstLet = new ClassLet(3-1, 6-1);
+                ClassLet SecondLet = new ClassLet(8-1, 9-1);
                 while (Hodr.CharLive())
                 {
                     Console.WriteLine("Для перемещения нажмите WASD. Для удара персонажа нажмите Enter, для исцеления нажмите Backspace");
 
                     Console.WriteLine();
                     int[,] Arr = new int[10, 10];
-
-                    int[] kek = Hodr.CharPosition();
-                    Console.WriteLine(kek);
-                    Console.WriteLine(FirstLet.LetPosition());
-
-
-                    if (Hodr.CharPosition() == FirstLet.LetPosition()/* || Hodr.CharPosition() == SecondLet.LetPosition()*/)
-                    {
-                        Hodr.Dmg();
-
-                    }
+                    CharOnLet(ref SaveCoordX, ref SaveCoordY, Hodr, FirstLet, SecondLet);
 
                     for (int i = 0; i < 10; i++)
                     {
                         for (int j = 0; j < 10; j++)
                         {
                             Arr[i, j] = 0;
-                            if (FirstLet.LetPlace(i,j))
+                            if (FirstLet.LetPlace(i, j))
                             {
-                                Arr[i,j] = 7;
+                                Arr[i, j] = 7;
                             }
-                            if (SecondLet.LetPlace(i,j))
+                            if (SecondLet.LetPlace(i, j))
                             {
                                 Arr[i, j] = 7;
                             }
@@ -66,23 +57,10 @@ namespace Char
                         Console.WriteLine();
                     }
                     Console.WriteLine();
-                    Hodr.CharPlaceSave();
+
 
                     Hodr.CharCheck();
-
-                    ConsoleKey Act = Console.ReadKey().Key;
-                    if (Act == ConsoleKey.W || Act == ConsoleKey.A || Act == ConsoleKey.S || Act == ConsoleKey.D)
-                    {
-                        Hodr.Move(Act);
-                    }
-                    else if (Act == ConsoleKey.Enter)
-                    {
-                        Hodr.Dmg();
-                    }
-                    else if (Act == ConsoleKey.Backspace)
-                    {
-                        Hodr.Heal();
-                    }
+                    Action(Hodr);
 
                     Console.Clear();
                     if (Hodr.CharLive() == false)
@@ -96,6 +74,37 @@ namespace Char
                         break;
                     }
                 }
+            }
+        }
+
+        private static void Action(ClassCharactor Hodr)
+        {
+            ConsoleKey Act = Console.ReadKey().Key;
+            if (Act == ConsoleKey.W || Act == ConsoleKey.A || Act == ConsoleKey.S || Act == ConsoleKey.D)
+            {
+                Hodr.Move(Act);
+            }
+            else if (Act == ConsoleKey.Enter)
+            {
+                Hodr.Dmg();
+            }
+            else if (Act == ConsoleKey.Backspace)
+            {
+                Hodr.Heal();
+            }
+        }
+
+        private static void CharOnLet(ref int SaveCoordX, ref int SaveCoordY, ClassCharactor Hodr, ClassLet FirstLet, ClassLet SecondLet)
+        {
+            if (FirstLet.LetPosition()[0] == Hodr.CharPosition()[0] && FirstLet.LetPosition()[1] == Hodr.CharPosition()[1] || SecondLet.LetPosition()[0] == Hodr.CharPosition()[0] && SecondLet.LetPosition()[1] == Hodr.CharPosition()[1])
+            {
+                Hodr.Dmg();
+                Hodr.CharReposition(SaveCoordX, SaveCoordY);
+            }
+            else
+            {
+                SaveCoordX = Hodr.CharSaveLastPosition()[0];
+                SaveCoordY = Hodr.CharSaveLastPosition()[1];
             }
         }
     }

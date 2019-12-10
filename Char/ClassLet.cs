@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Char
 {
-    class Let
+    class ClassLet
     {
         public int LetCoordX;
         public int LetCoordY;
 
-        public Let(int letCoordX, int letCoordY)
+        public ClassLet(int letCoordX, int letCoordY)
         {
             this.LetCoordX = letCoordX;
             this.LetCoordY = letCoordY;
