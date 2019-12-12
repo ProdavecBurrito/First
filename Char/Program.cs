@@ -57,11 +57,25 @@ namespace Char
                             }
                             if (FirstHealEl.HealElPlace(i, j))
                             {
-                                Field[i, j] = 3;
+                                if (FirstHealEl.HealElOn())
+                                {
+                                    Field[i, j] = 3;
+                                }
+                                else
+                                {
+                                    Field[i, j] = 0;
+                                }
                             }
                             if (SecondHealEl.HealElPlace(i, j))
                             {
-                                Field[i, j] = 3;
+                                if (SecondHealEl.HealElOn())
+                                {
+                                    Field[i, j] = 3;
+                                }
+                                else
+                                {
+                                    Field[i, j] = 0;
+                                }
                             }
                             if (Hodr.Place(i, j))
                             {
@@ -97,8 +111,21 @@ namespace Char
         {
             if (healEl.HealPosition()[0] == pers.CharPosition()[0] && healEl.HealPosition()[1] == pers.CharPosition()[1])
             {
-                pers.Heal();
-                healEl.HealDelite();
+                if (pers.Health != 10)
+                {
+                    if (healEl.HealElOn())
+                    {
+                        pers.Heal();
+                        healEl.HealActiv = 1;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Персонаж полностью здоров");
+                    Console.WriteLine("Нажмите любую клавишу, что бы продолжить");
+                    Console.ReadKey();
+                }
             }
         }
 

@@ -10,6 +10,7 @@ namespace Char
     {
         public int CoordinateX;
         public int CoordinateY;
+        public int HealActiv = 0;
 
         public HealingElixir(int coordinateX, int coordinateY)
         {
@@ -36,10 +37,17 @@ namespace Char
             return Pos;
         }
 
-        public void HealDelite()
+        public bool HealElOn()
         {
-            CoordinateX = 0;
-            CoordinateY = 0;
+            if (HealActiv == 0)
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
         }
+
     }
 }

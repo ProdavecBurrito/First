@@ -9,7 +9,7 @@ namespace Char
     public class Charactor
     {
         string Name;
-        int Health;
+        public int Health;
         int X;
         int Y;
         int Min = 0;
@@ -19,16 +19,8 @@ namespace Char
         {
             this.Name = name;
             this.Health = health;
-            //if (x > Max || x < Min || y > Max || x < Min)
-            //{
-            //    Console.WriteLine("Нельзя поставить персонажа за приделами поля");
-
-            //}
-            //else
-            {
-                this.X = x;
-                this.Y = y;
-            }
+            this.X = x;
+            this.Y = y;
         }
 
         public void Move(ConsoleKey a)
