@@ -111,20 +111,10 @@ namespace Char
         {
             if (healEl.HealPosition()[0] == pers.CharPosition()[0] && healEl.HealPosition()[1] == pers.CharPosition()[1])
             {
-                if (pers.Health != 10)
+                if (healEl.HealElOn())
                 {
-                    if (healEl.HealElOn())
-                    {
-                        pers.Heal();
-                        healEl.HealActiv = 1;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Персонаж полностью здоров");
-                    Console.WriteLine("Нажмите любую клавишу, что бы продолжить");
-                    Console.ReadKey();
+                    pers.HealingPotions += 1;
+                    healEl.HealActiv = 1;
                 }
             }
         }
@@ -142,7 +132,16 @@ namespace Char
             }
             else if (Act == ConsoleKey.Backspace)
             {
-                pers.Heal();
+                if (pers.HealingPotions > 0)
+                {
+                    pers.Heal();
+                    pers.HealingPotions -= 1;
+                }
+                else
+                {
+                    Console.WriteLine("У Вас нет хилок");
+                    Console.ReadKey();
+                }
             }
         }
 

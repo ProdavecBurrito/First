@@ -10,47 +10,49 @@ namespace Char
     {
         string Name;
         public int Health;
-        int X;
-        int Y;
+        int CoordinateX;
+        int CoordinateY;
         int Min = 0;
         int Max = 9;
+        public int HealingPotions = 0;
+
 
         public Charactor(string name, int health, int x, int y)
         {
             this.Name = name;
             this.Health = health;
-            this.X = x;
-            this.Y = y;
+            this.CoordinateX = x;
+            this.CoordinateY = y;
         }
 
         public void Move(ConsoleKey a)
         {
             if (a == ConsoleKey.W)
             {
-                if (this.X != this.Min)
+                if (this.CoordinateX != this.Min)
                 {
-                    this.X -= 1;
+                    this.CoordinateX -= 1;
                 }
             }
             else if (a == ConsoleKey.D)
             {
-                if (this.Y != this.Max)
+                if (this.CoordinateY != this.Max)
                 {
-                    this.Y += 1;
+                    this.CoordinateY += 1;
                 }
             }
             else if (a == ConsoleKey.S)
             {
-                if (this.X != this.Max)
+                if (this.CoordinateX != this.Max)
                 {
-                    this.X += 1;
+                    this.CoordinateX += 1;
                 }
             }
             else if (a == ConsoleKey.A)
             {
-                if (this.Y != this.Min)
+                if (this.CoordinateY != this.Min)
                 {
-                    this.Y -= 1;
+                    this.CoordinateY -= 1;
                 }
             }
         }
@@ -89,7 +91,7 @@ namespace Char
         }
         public bool Place(int x, int y)
         {
-            if (x == this.X && y == this.Y)
+            if (x == this.CoordinateX && y == this.CoordinateY)
             {
                 return true;
             }
@@ -103,28 +105,29 @@ namespace Char
         {
             Console.WriteLine($"Персонаж - {this.Name}");
             Console.WriteLine($"Кол-во жизней - {this.Health}");
-            Console.WriteLine($"Координаты - {this.X + 1}x{this.Y + 1}");
+            Console.WriteLine($"Координаты - {this.CoordinateX + 1}x{this.CoordinateY + 1}");
+            Console.WriteLine($"Колл. хилок - {HealingPotions}");
         }
 
         public int[] CharSaveLastPosition()
         {
             int[] pos = new int[2];
-            pos[0] = this.X;
-            pos[1] = this.Y;
+            pos[0] = this.CoordinateX;
+            pos[1] = this.CoordinateY;
             return pos;
         }
         public int[] CharPosition() // Поидее, это перегрузка CharSaveLastPosition. Должна быть. Но ведь они о разном совершенно
         {
             int[] pos = new int[2];
-            pos[0] = this.X;
-            pos[1] = this.Y;
+            pos[0] = this.CoordinateX;
+            pos[1] = this.CoordinateY;
             return pos;
         }
 
         public void CharReposition(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            this.CoordinateX = x;
+            this.CoordinateY = y;
         }
     }
 }
