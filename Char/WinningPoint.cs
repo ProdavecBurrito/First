@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Char
 {
-    class Let
+    class WinningPoint
     {
-        public int CoordinateX;
-        public int CoordinateY;
+        int CoordinateX;
+        int CoordinateY;
 
-        public Let(int letCoordX, int letCoordY)
+        public WinningPoint(int x, int y)
         {
-            this.CoordinateX = letCoordX;
-            this.CoordinateY = letCoordY;
+            this.CoordinateX = x;
+            this.CoordinateY = y;
         }
 
-        public bool LetPlace(int x, int y)
+        public bool WinningCoordinates(int coordinateX, int coordinateY)
         {
-            if (x == this.CoordinateX && y == this.CoordinateY)
+            if (coordinateX == this.CoordinateX && coordinateY == this.CoordinateY)
             {
                 return true;
             }
@@ -29,7 +29,7 @@ namespace Char
             }
         }
 
-        public int[] LetPosition()
+        public int[] WinningPosition()
         {
             int[] pos = new int[2];
             pos[0] = this.CoordinateX;

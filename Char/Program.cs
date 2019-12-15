@@ -25,6 +25,8 @@ namespace Char
             }
             else
             {
+                int MoveCount = 0;
+                WinningPoint Win = new WinningPoint(9,9);
                 Charactor Hodr = new Charactor("Hodr", 9, X, Y);
                 Let FirstLet = new Let(3-1, 6-1);
                 Let SecondLet = new Let(8-1, 9-1);
@@ -36,10 +38,16 @@ namespace Char
                     Console.WriteLine("Для перемещения нажмите WASD. Для удара персонажа нажмите Enter, для исцеления нажмите Backspace");
 
                     Console.WriteLine();
+
+
                     int[,] Field = new int[10, 10];
+
                     CharOnLet(ref SaveCoordX, ref SaveCoordY, Hodr, FirstLet, SecondLet);
+
                     GrabHealingEl(Hodr, FirstHealEl);
+
                     GrabHealingEl(Hodr, SecondHealEl);
+
                     for (int i = 0; i < 10; i++)
                     {
                         for (int j = 0; j < 10; j++)
@@ -81,6 +89,10 @@ namespace Char
                             {
                                 Field[i, j] = 1;
                             }
+                            if (Win.WinningCoordinates(i,j))
+                            {
+                                Field[i, j] = 8;
+                            }
                             Console.Write(Field[i, j]);
                         }
 
@@ -88,11 +100,22 @@ namespace Char
                     }
                     Console.WriteLine();
 
-
+                    MoveCount++;
                     Hodr.CharCheck();
                     Action(Hodr);
 
                     Console.Clear();
+                    if (Hodr.CharPosition()[0] == Win.WinningPosition()[0] && Hodr.CharPosition()[1] == Win.WinningPosition()[1])
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Отлично, вы прошли уровень!");
+                        Console.WriteLine();
+                        Console.WriteLine($"Вы прошли уровень за {MoveCount} ходов");
+                        Console.WriteLine();
+                        Console.WriteLine("Нажмите любую клавишу, что бы выйти");
+                        Console.ReadKey();
+                        break;
+                    }
                     if (Hodr.CharLive() == false)
                     {
                         Hodr.CharCheck();

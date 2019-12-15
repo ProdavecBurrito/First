@@ -31,10 +31,10 @@ namespace Char
 
         public int[] HealPosition()
         {
-            int[] Pos = new int[2];
-            Pos[0] = this.CoordinateX;
-            Pos[1] = this.CoordinateY;
-            return Pos;
+            int[] pos = new int[2];
+            pos[0] = this.CoordinateX;
+            pos[1] = this.CoordinateY;
+            return pos;
         }
 
         public bool HealElOn()

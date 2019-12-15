@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WinningPoint.cs" />
     <Compile Include="HealingElixir.cs" />
     <Compile Include="Charactor.cs" />
     <Compile Include="Let.cs" />
