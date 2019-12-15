@@ -17,28 +17,23 @@ namespace Char
 
         public char[,] MapReader()
         {
-            using (var mapRead = new StreamReader(@"C:\Users\shipo\source\repos\First\Map.txt"))
+            using (var mapRead = new StreamReader(@"../../../Map.txt"))
             {
 
-                int count = 0;
+                int i = 0;
                 this.line = new char[MaxHight, MaxWidth];
                 char Kek;
                 while (!mapRead.EndOfStream)
                 {
-                    //for (int i = 0; !mapRead.EndOfStream; i++)
-                    //{
-                    //    Kek = Convert.ToChar(mapRead.Read());
-                    //    Console.Write(Kek);
-                    //}
-                    for (int j = 0; j < MaxWidth && !mapRead.EndOfStream; j++)
+                    string mapRow = mapRead.ReadLine();
+                    for(int j=0; j <mapRow.Length; ++j)
                     {
-                        line[count, j] = Convert.ToChar(mapRead.Read());
-                        Console.Write(line[count, j]);
+                        this.line[i,j] = mapRow[j];
                     }
-                    count++;
+                    i++;
                 }
-                return line;
             }
+            return this.line;
         }
         public void MapWriter(char[,] map)
         {
