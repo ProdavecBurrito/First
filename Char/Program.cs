@@ -37,7 +37,7 @@ namespace Char
                 {
                     Mines NewMine = new Mines(RandomPlace.Next(1,9), RandomPlace.Next(1,9));
                     MineNumber[i] = NewMine;
-                    Console.WriteLine($"{MineNumber[i].MinePosition()[0]} {MineNumber[i].MinePosition()[1]}");
+                    Console.WriteLine($"{MineNumber[i].MinePosition()[0] + 1} {MineNumber[i].MinePosition()[1] + 1}");
                 }
 
                 int MoveCount = 0;
