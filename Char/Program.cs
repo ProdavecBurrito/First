@@ -25,11 +25,29 @@ namespace Char
             }
             else
             {
+                Console.WriteLine();
+
+                int MinesNum = 3;
+
+                int[] MineNumber = new int[MinesNum];
+
+                Random RandomPlace = new Random();
+
+                for (int i = 0; i < MinesNum; i++)
+                {
+                    Mines Mine = new Mines(i, RandomPlace.Next(9), RandomPlace.Next(9));
+                    MineNumber[i] = Mine;
+                    //Console.WriteLine($"{Mine.MineName} {Mine.MinePosition()[0]} {Mine.MinePosition()[1]}");
+                }
+
                 int MoveCount = 0;
                 WinningPoint Win = new WinningPoint(9,9);
+
                 Charactor Hodr = new Charactor("Hodr", 9, X, Y);
+
                 Let FirstLet = new Let(3-1, 6-1);
                 Let SecondLet = new Let(8-1, 9-1);
+
                 HealingElixir FirstHealEl = new HealingElixir(4 - 1, 3 - 1);
                 HealingElixir SecondHealEl = new HealingElixir(10 - 1, 7 - 1);
 
@@ -55,6 +73,10 @@ namespace Char
                             Field[i, j] = 0;
 
                             // тут пора бы уже свич делать, завтра попробую
+                            //for (int L = 0; L < MinesNum; L++)
+                            //{
+                            //    if ()
+                            //}
                             if (FirstLet.LetPlace(i, j))
                             {
                                 Field[i, j] = 7;
