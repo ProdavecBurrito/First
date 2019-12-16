@@ -29,15 +29,15 @@ namespace Char
 
                 int MinesNum = 3;
 
-                int[] MineNumber = new int[MinesNum];
+                Mines[] MineNumber = new Mines[MinesNum];
 
                 Random RandomPlace = new Random();
 
                 for (int i = 0; i < MinesNum; i++)
                 {
-                    Mines Mine = new Mines(i, RandomPlace.Next(9), RandomPlace.Next(9));
-                    MineNumber[i] = Mine;
-                    //Console.WriteLine($"{Mine.MineName} {Mine.MinePosition()[0]} {Mine.MinePosition()[1]}");
+                    Mines NewMine = new Mines(RandomPlace.Next(1,9), RandomPlace.Next(1,9));
+                    MineNumber[i] = NewMine;
+                    Console.WriteLine($"{MineNumber[i].MinePosition()[0]} {MineNumber[i].MinePosition()[1]}");
                 }
 
                 int MoveCount = 0;
@@ -62,6 +62,11 @@ namespace Char
 
                     CharOnLet(ref SaveCoordX, ref SaveCoordY, Hodr, FirstLet, SecondLet);
 
+                    for (int i = 0; i < MinesNum; i++)
+                    {
+                        StepOnMine(Hodr, MineNumber[i], MinesNum);
+                    }
+
                     GrabHealingEl(Hodr, FirstHealEl);
 
                     GrabHealingEl(Hodr, SecondHealEl);
@@ -72,11 +77,22 @@ namespace Char
                         {
                             Field[i, j] = 0;
 
-                            // тут пора бы уже свич делать, завтра попробую
-                            //for (int L = 0; L < MinesNum; L++)
-                            //{
-                            //    if ()
-                            //}
+                            //тут пора бы уже свич делать, завтра попробую
+                            for (int L = 0; L < MinesNum; L++)
+                            {
+                                if (MineNumber[L].MineCoordinates(i,j))
+                                {
+                                    if (MineNumber[L].MineOn())
+                                    {
+                                        Field[i, j] = 0;
+                                    }
+                                    else
+                                    {
+                                        Field[i, j] = 9; 
+                                    }
+                                    
+                                }
+                            }
                             if (FirstLet.LetPlace(i, j))
                             {
                                 Field[i, j] = 7;
@@ -150,6 +166,22 @@ namespace Char
                     }
                 }
             }
+        }
+
+        private static void StepOnMine(Charactor pers, Mines mine, int mineNum)
+        {
+            for (int i = 0; i < mineNum; i++)
+            {
+                if (mine.MinePosition()[0] == pers.CharPosition()[0] && mine.MinePosition()[1] == pers.CharPosition()[1])
+                {
+                    if (mine.MineOn())
+                    {
+                        pers.Dmg();
+                        mine.MineActiv = 1;
+                    }
+                }
+            }
+            
         }
 
         private static void GrabHealingEl(Charactor pers, HealingElixir healEl)

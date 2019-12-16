@@ -8,15 +8,12 @@ namespace Char
 {
     class Mines
     {
-        public string MineName;
         int CoordinateX;
         int CoordinateY;
-        Random RanMine1 = new Random();
-        //Random RanMine2 = new Random();// не додумался до способа присвоить каждой мине отличные координаты от другой
+        public int MineActiv = 0;
 
-        public Mines(int mineNumber, int x, int y)
+        public Mines(int x, int y)
         {
-            this.MineName = "Mine" + mineNumber;
             this.CoordinateX = x;
             this.CoordinateY = y;
         }
@@ -39,6 +36,18 @@ namespace Char
             pos[0] = this.CoordinateX;
             pos[1] = this.CoordinateY;
             return pos;
+        }
+
+        public bool MineOn()
+        {
+            if (MineActiv == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
