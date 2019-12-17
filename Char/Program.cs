@@ -27,6 +27,8 @@ namespace Char
             {
                 Console.WriteLine();
 
+                string DmgCheck = "";
+
                 int MinesNum = 3;
 
                 Mines[] MineNumber = new Mines[MinesNum];
@@ -39,11 +41,13 @@ namespace Char
                     MineNumber[i] = NewMine;
                     Console.WriteLine($"{MineNumber[i].MinePosition()[0] + 1} {MineNumber[i].MinePosition()[1] + 1}");
                 }
+                Charactor Hodr = new Charactor("Hodr", 9, X, Y);
 
                 int MoveCount = 0;
+                int Heals = Hodr.HealingPotions;
+
                 WinningPoint Win = new WinningPoint(9,9);
 
-                Charactor Hodr = new Charactor("Hodr", 9, X, Y);
 
                 Let FirstLet = new Let(3-1, 6-1);
                 Let SecondLet = new Let(8-1, 9-1);
@@ -57,14 +61,22 @@ namespace Char
 
                     Console.WriteLine();
 
+                    Console.WriteLine(Hodr.LastMove);
 
                     int[,] Field = new int[10, 10];
+
+                    if(Heals > Hodr.HealingPotions)
+                    {
+                        Console.WriteLine("Вы использовали хилку");
+                    }
+
+                    Heals = Hodr.LastMoveHeals();
 
                     CharOnLet(ref SaveCoordX, ref SaveCoordY, Hodr, FirstLet, SecondLet);
 
                     for (int i = 0; i < MinesNum; i++)
                     {
-                        StepOnMine(Hodr, MineNumber[i], MinesNum);
+                        StepOnMine(Hodr, MineNumber[i], MinesNum, DmgCheck);
                     }
 
                     GrabHealingEl(Hodr, FirstHealEl);
@@ -142,6 +154,9 @@ namespace Char
                     Hodr.CharCheck();
                     Action(Hodr);
 
+                    Console.WriteLine();
+
+
                     Console.Clear();
                     if (Hodr.CharPosition()[0] == Win.WinningPosition()[0] && Hodr.CharPosition()[1] == Win.WinningPosition()[1])
                     {
@@ -168,7 +183,7 @@ namespace Char
             }
         }
 
-        private static void StepOnMine(Charactor pers, Mines mine, int mineNum)
+        private static void StepOnMine(Charactor pers, Mines mine, int mineNum, string dmgCheck)
         {
             for (int i = 0; i < mineNum; i++)
             {
@@ -178,6 +193,7 @@ namespace Char
                     {
                         pers.Dmg();
                         mine.MineActiv = 1;
+                        Console.WriteLine("Персонаж получил урон от мины");
                     }
                 }
             }
@@ -192,6 +208,7 @@ namespace Char
                 {
                     pers.HealingPotions += 1;
                     healEl.HealActiv = 1;
+                    Console.WriteLine("Вы подобрали хилку");
                 }
             }
         }
@@ -228,6 +245,7 @@ namespace Char
             {
                 Hodr.Dmg();
                 Hodr.CharReposition(SaveCoordX, SaveCoordY);
+                Console.WriteLine("Персонаж получил урон от препятствия");
             }
             else
             {

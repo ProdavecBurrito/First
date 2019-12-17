@@ -9,6 +9,7 @@ namespace Char
     public class Charactor
     {
         string Name;
+        public string LastMove;
         public int Health;
         int CoordinateX;
         int CoordinateY;
@@ -32,6 +33,7 @@ namespace Char
                 if (this.CoordinateX != this.Min)
                 {
                     this.CoordinateX -= 1;
+                    this.LastMove = "Персонаж шагнул вперед";
                 }
             }
             else if (a == ConsoleKey.D)
@@ -39,6 +41,7 @@ namespace Char
                 if (this.CoordinateY != this.Max)
                 {
                     this.CoordinateY += 1;
+                    this.LastMove = "Персонаж шагнул вправо";
                 }
             }
             else if (a == ConsoleKey.S)
@@ -46,6 +49,7 @@ namespace Char
                 if (this.CoordinateX != this.Max)
                 {
                     this.CoordinateX += 1;
+                    this.LastMove = "Персонаж шагнул назад";
                 }
             }
             else if (a == ConsoleKey.A)
@@ -53,7 +57,12 @@ namespace Char
                 if (this.CoordinateY != this.Min)
                 {
                     this.CoordinateY -= 1;
+                    this.LastMove = "Персонаж шагнул влево";
                 }
+            }
+            else
+            {
+                this.LastMove = "Персонаж остался на месте";
             }
         }
 
@@ -74,6 +83,7 @@ namespace Char
             }
             else
             {
+                Console.WriteLine("Персонаж использовал хилку");
                 return Health += 1;
             }
         }
@@ -128,6 +138,12 @@ namespace Char
         {
             this.CoordinateX = x;
             this.CoordinateY = y;
+        }
+
+        public int LastMoveHeals()
+        {
+            int count = this.HealingPotions;
+            return count;
         }
     }
 }
