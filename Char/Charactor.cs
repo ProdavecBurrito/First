@@ -83,7 +83,6 @@ namespace Char
             }
             else
             {
-                Console.WriteLine("Персонаж использовал хилку");
                 return Health += 1;
             }
         }
