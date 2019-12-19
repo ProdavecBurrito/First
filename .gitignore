@@ -4,5 +4,4 @@
 
 *.lock
 /.vs/First/v16
-*.lock
 /bin
