@@ -4,6 +4,8 @@
 
 *.lock
 /.vs/First/v16
+
 /bin
 Char/obj/
 Char/bin/
+Char/obj/Debug/
