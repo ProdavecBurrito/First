@@ -63,7 +63,7 @@ namespace Char
 
                     Console.WriteLine(Hodr.LastMove);
 
-                    int[,] Field = new int[10, 10];
+                    int[,] field = new int[10, 10];
 
                     if(Heals > Hodr.HealingPotions)
                     {
@@ -87,7 +87,7 @@ namespace Char
                     {
                         for (int j = 0; j < 10; j++)
                         {
-                            Field[i, j] = 0;
+                            field[i, j] = 0;
 
                             //тут пора бы уже свич делать, завтра попробую
                             for (int L = 0; L < MinesNum; L++)
@@ -96,54 +96,54 @@ namespace Char
                                 {
                                     if (MineNumber[L].MineOn())
                                     {
-                                        Field[i, j] = 0;
+                                        field[i, j] = 0;
                                     }
                                     else
                                     {
-                                        Field[i, j] = 9; 
+                                        field[i, j] = 9; 
                                     }
                                     
                                 }
                             }
                             if (FirstLet.LetPlace(i, j))
                             {
-                                Field[i, j] = 7;
+                                field[i, j] = 7;
                             }
                             if (SecondLet.LetPlace(i, j))
                             {
-                                Field[i, j] = 7;
+                                field[i, j] = 7;
                             }
                             if (FirstHealEl.HealElPlace(i, j))
                             {
                                 if (FirstHealEl.HealElOn())
                                 {
-                                    Field[i, j] = 3;
+                                    field[i, j] = 3;
                                 }
                                 else
                                 {
-                                    Field[i, j] = 0;
+                                    field[i, j] = 0;
                                 }
                             }
                             if (SecondHealEl.HealElPlace(i, j))
                             {
                                 if (SecondHealEl.HealElOn())
                                 {
-                                    Field[i, j] = 3;
+                                    field[i, j] = 3;
                                 }
                                 else
                                 {
-                                    Field[i, j] = 0;
+                                    field[i, j] = 0;
                                 }
                             }
                             if (Hodr.Place(i, j))
                             {
-                                Field[i, j] = 1;
+                                field[i, j] = 1;
                             }
                             if (Win.WinningCoordinates(i,j))
                             {
-                                Field[i, j] = 8;
+                                field[i, j] = 8;
                             }
-                            Console.Write(Field[i, j]);
+                            Console.Write(field[i, j]);
                         }
 
                         Console.WriteLine();
