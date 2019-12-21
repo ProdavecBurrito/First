@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Char
@@ -13,29 +9,27 @@ namespace Char
         public int MaxHight = 20;
         public int X = 5;
         public int Y = 10;
-        public char[,] line;
+        char[,] MapAsArray;
 
-        public char[,] MapReader()
+        public void MapReader()
         {
             using (var mapRead = new StreamReader(@"../../../Map.txt"))
             {
-
                 int i = 0;
-                this.line = new char[MaxHight, MaxWidth];
-                char Kek;
+                this.MapAsArray = new char[MaxHight, MaxWidth];
                 while (!mapRead.EndOfStream)
                 {
                     string mapRow = mapRead.ReadLine();
-                    for(int j=0; j <mapRow.Length; ++j)
+                    for (int j = 0; j < mapRow.Length; ++j)
                     {
-                        this.line[i,j] = mapRow[j];
+                        this.MapAsArray[i, j] = mapRow[j];
                     }
                     i++;
                 }
             }
-            return this.line;
         }
-        public void MapWriter(char[,] map)
+
+        public void MapWriter()
         {
             for (int i = 0; i < MaxHight; i++)
             {
@@ -43,10 +37,9 @@ namespace Char
                 {
                     if (j == X && i == Y)
                     {
-                        map[i, j] = 'X';
-                        //Console.WriteLine([j]);
+                        this.MapAsArray[i, j] = 'X';
                     }
-                    Console.Write(map[i, j]);
+                    Console.Write(this.MapAsArray[i, j]);
                 }
                 Console.WriteLine();
             }
