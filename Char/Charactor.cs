@@ -9,58 +9,60 @@ namespace Char
     public class Charactor
     {
         string Name;
-        int Health;
+        public string LastMove;
+        public int Health;
         int CoordinateX;
         int CoordinateY;
-        int MinX = 0;
-        int MinY = 0;
-        int MaxX = 50;
-        int MaxY = 20;
+        int Min = 0;
+        int Max = 9;
+        public int HealingPotions = 0;
+
 
         public Charactor(string name, int health, int x, int y)
         {
             this.Name = name;
             this.Health = health;
-            if (x > MaxX || x < MinX || y > MaxX || y < MinX)
-            {
-                Console.WriteLine("Нельзя поставить персонажа за приделами поля");
-            }
-            else
-            {
-                this.CoordinateX = x;
-                this.CoordinateY = y;
-            }
+            this.CoordinateX = x;
+            this.CoordinateY = y;
         }
 
         public void Move(ConsoleKey a)
         {
             if (a == ConsoleKey.W)
             {
-                if (this.CoordinateX != this.MinX)
+                if (this.CoordinateX != this.Min)
                 {
                     this.CoordinateX -= 1;
+                    this.LastMove = "Персонаж шагнул вперед";
                 }
             }
             else if (a == ConsoleKey.D)
             {
-                if (this.CoordinateY != this.MaxX)
+                if (this.CoordinateY != this.Max)
                 {
                     this.CoordinateY += 1;
+                    this.LastMove = "Персонаж шагнул вправо";
                 }
             }
             else if (a == ConsoleKey.S)
             {
-                if (this.CoordinateX != this.MaxX)
+                if (this.CoordinateX != this.Max)
                 {
                     this.CoordinateX += 1;
+                    this.LastMove = "Персонаж шагнул назад";
                 }
             }
             else if (a == ConsoleKey.A)
             {
-                if (this.CoordinateY != this.MinX)
+                if (this.CoordinateY != this.Min)
                 {
                     this.CoordinateY -= 1;
+                    this.LastMove = "Персонаж шагнул влево";
                 }
+            }
+            else
+            {
+                this.LastMove = "Персонаж остался на месте";
             }
         }
 
@@ -96,7 +98,7 @@ namespace Char
                 return false;
             }
         }
-        public bool Place (int x, int y)
+        public bool Place(int x, int y)
         {
             if (x == this.CoordinateX && y == this.CoordinateY)
             {
@@ -112,7 +114,35 @@ namespace Char
         {
             Console.WriteLine($"Персонаж - {this.Name}");
             Console.WriteLine($"Кол-во жизней - {this.Health}");
-            Console.WriteLine($"Координаты - {this.CoordinateX+1}x{this.CoordinateY+1}");
+            Console.WriteLine($"Координаты - {this.CoordinateX + 1}x{this.CoordinateY + 1}");
+            Console.WriteLine($"Колл. хилок - {HealingPotions}");
+        }
+
+        public int[] CharSaveLastPosition()
+        {
+            int[] pos = new int[2];
+            pos[0] = this.CoordinateX;
+            pos[1] = this.CoordinateY;
+            return pos;
+        }
+        public int[] CharPosition() // Поидее, это перегрузка CharSaveLastPosition. Должна быть. Но ведь они о разном совершенно
+        {
+            int[] pos = new int[2];
+            pos[0] = this.CoordinateX;
+            pos[1] = this.CoordinateY;
+            return pos;
+        }
+
+        public void CharReposition(int x, int y)
+        {
+            this.CoordinateX = x;
+            this.CoordinateY = y;
+        }
+
+        public int LastMoveHeals()
+        {
+            int count = this.HealingPotions;
+            return count;
         }
     }
 }
